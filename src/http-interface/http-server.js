@@ -84,17 +84,17 @@ export default (HTTP_SERVER_PORT = 3000, TCP_SERVER_PORT = 3001) => {
         client.handleConnect()
     }
 
-    process.once('SIGKILL', () => {
-        client.end()
-    })
+    // process.once('SIGKILL', () => {
+    //     client.end()
+    // })
 
-    process.once('SIGTERM', () => {
-        client.end()
-    })
+    // process.once('SIGTERM', () => {
+    //     client.end()
+    // })
 
-    process.once('SIGABRT', () => {
-        client.end()
-    })
+    // process.once('SIGABRT', () => {
+    //     client.end()
+    // })
 
 
     return handleStartServer()
