@@ -15,7 +15,7 @@ class PGDB {
             database: 'rinha',
             user: 'admin',
             password: '123456',
-            port: '15432',
+            // port: 5432,
             keepAlive: true,
             max: 15,
             idleTimeoutMillis: 0,

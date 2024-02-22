@@ -9,8 +9,9 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_DB=rinha
     volumes:
-      - ./script/script.sql:/docker-entrypoint-initdb.d/script.sql
-    network_mode: host
+      - ./script/start-db.sql:/docker-entrypoint-initdb.d/script.sql
+    ports:
+      - "5432:5432"
     deploy:
       resources:
         limits:
@@ -18,14 +19,16 @@ services:
           memory: "300MB"
 
   api01: &api
-    image: .
+    image: node-teste
     hostname: api01
     environment:
       - HTTP_PORT=3332
       - TCP_PORT=3302
+      - DB_HOST=localhost
     depends_on:
      - db
-    network_mode: host
+    ports:
+      - "3332:3332"
     deploy:
       resources:
         limits:
@@ -38,6 +41,8 @@ services:
     environment:
       - HTTP_PORT=3333
       - TCP_PORT=3303
+    ports:
+      - "3333:3333"
 
   nginx:
     image: nginx:latest
@@ -46,7 +51,6 @@ services:
     depends_on:
       - api01
       - api02
-    network_mode: host
     deploy:
       resources:
         limits:
@@ -54,4 +58,6 @@ services:
           memory: "50MB"
 
 networks:
-  rinha-network:
+  default:
+    driver: bridge
+    name: rinha-nginx-2024q1

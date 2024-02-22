@@ -1,6 +1,7 @@
 import httpServer from "./src/http-interface/http-server.js";
 import tcpServer from "./src/http-interface/tcp-server.js";
 import cluster from 'cluster';
+import 'dotenv/config.js'
 
 // Deixar a maior parte para o DB 😍
 const numCPUs = 2
