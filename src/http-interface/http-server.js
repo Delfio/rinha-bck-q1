@@ -3,8 +3,8 @@ import url from 'node:url';
 import tcpClient from './tcp-client.js';
 
 // /clientes/[id]/extrato
-export default (HTTP_SERVER_PORT = 3000, TCP_SERVER_PORT = 3001) => {
-    const client = tcpClient('localhost', TCP_SERVER_PORT)
+export default (HTTP_SERVER_PORT = 3000, TCP_SERVER_PORT = 3001, TCP_HOST = 'localhost') => {
+    const client = tcpClient(TCP_HOST, TCP_SERVER_PORT)
 
     const this_process = process.pid;
     

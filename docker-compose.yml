@@ -18,39 +18,48 @@ services:
           cpus: "0.7"
           memory: "300MB"
 
-  api01: &api
+  tcp_server:
     image: node-teste
-    hostname: api01
+    hostname: TCP_SERVER
     environment:
-      - HTTP_PORT=3332
-      - TCP_PORT=3302
-      - DB_HOST=localhost
+      - DB_HOST=db
+      - INSTANCE=TCP_SERVER
+      - TCP_PORT=3301
     depends_on:
      - db
     ports:
-      - "3332:3332"
+      - "3301:3301"
     deploy:
       resources:
         limits:
           cpus: "0.3"
           memory: "100MB"
 
-  api02:
-    <<: *api
-    hostname: api02
+  http_server:
+    image: node-teste
     environment:
       - HTTP_PORT=3333
-      - TCP_PORT=3303
+      - INSTANCE=HTTP_SERVER
+      - TCP_PORT=3301
+      - TCP_HOST=TCP_SERVER
+    depends_on:
+     - db
+     - tcp_server
     ports:
       - "3333:3333"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: "100MB"
 
   nginx:
     image: nginx:latest
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - api01
-      - api02
+      - http_server
+      - tcp_server
     deploy:
       resources:
         limits:
