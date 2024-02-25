@@ -48,7 +48,7 @@ function fazerChamadaHTTP(id, baseURL, port) {
 async function MakeAsyncStressTest(HTTP_URL, HTTP_PORT) {
 
     // Matriz chamadasPorID X ids.length - convertendo para lista para randomizar melhor
-    const matriz_ids = Array.from({ length: chamadasPorID }, () => ids);
+    const matriz_ids = Array.from({ length: chamadasPorID }, () => ids).flat();
 
     for (let i = matriz_ids.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
