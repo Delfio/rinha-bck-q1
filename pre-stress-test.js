@@ -1,6 +1,6 @@
 import http from 'node:http';
 const ids = [1, 2, 3, 4];
-const chamadasPorID = 200;
+const chamadasPorID = 20;
 
 function fazerChamadaHTTP(id, baseURL, port) {
     return new Promise((resolve, reject) => {
