@@ -2,7 +2,9 @@ import "dotenv/config.js"
 
 import httpServer from "./src/http-interface/http-server.js";
 import tcpServer from "./src/http-interface/tcp-server.js";
-import cluster from "cluster";
+import cluster from "node:cluster";
+import stressTest from './pre-stress-test.js'
+import {setTimeout} from 'node:timers/promises'
 
 const numCPUs = 2
 
@@ -16,6 +18,9 @@ if (cluster.isPrimary) {
     for (let i = 0; i < numCPUs; i++) {
         cluster.fork();
     }
+
+    await setTimeout(2000) // por garantia
+    await stressTest('localhost', HTTP_PORT)
 } else {
     console.log(`worker ${process.pid} is running`)
 

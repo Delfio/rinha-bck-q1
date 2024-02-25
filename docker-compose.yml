@@ -16,10 +16,10 @@ services:
       resources:
         limits:
           cpus: "0.7"
-          memory: "300MB"
+          memory: "400MB"
 
   tcp_server:
-    image: node-teste
+    image: delfiofrancisco/rinha-bck-delfzin:1.0
     hostname: TCP_SERVER
     environment:
       - DB_HOST=db
@@ -32,13 +32,13 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.3"
+          cpus: "0.5"
           memory: "100MB"
 
   http_server:
-    image: node-teste
+    image: delfiofrancisco/rinha-bck-delfzin:1.0
     environment:
-      - HTTP_PORT=3333
+      - HTTP_PORT=9999
       - INSTANCE=HTTP_SERVER
       - TCP_PORT=3301
       - TCP_HOST=TCP_SERVER
@@ -46,24 +46,11 @@ services:
      - db
      - tcp_server
     ports:
-      - "3333:3333"
+      - "9999:9999"
     deploy:
       resources:
         limits:
           cpus: "0.3"
-          memory: "100MB"
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - http_server
-      - tcp_server
-    deploy:
-      resources:
-        limits:
-          cpus: "0.2"
           memory: "50MB"
 
 networks:
