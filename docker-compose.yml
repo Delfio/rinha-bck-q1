@@ -19,7 +19,7 @@ services:
           memory: "400MB"
 
   tcp_server:
-    image: delfiofrancisco/rinha-bck-delfzin:1.0
+    image: delfiofrancisco/rinha-bck-delfzin:latest
     hostname: TCP_SERVER
     environment:
       - DB_HOST=db
@@ -36,7 +36,7 @@ services:
           memory: "100MB"
 
   http_server:
-    image: delfiofrancisco/rinha-bck-delfzin:1.0
+    image: delfiofrancisco/rinha-bck-delfzin:latest
     environment:
       - HTTP_PORT=9999
       - INSTANCE=HTTP_SERVER
